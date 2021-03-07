@@ -1,25 +1,113 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
+import Userfront from "@userfront/react";
 
-function App() {
+Userfront.init("rbv6p5bd");
+
+const SignupForm = Userfront.build({
+  toolId: "mnlaom",
+});
+const LoginForm = Userfront.build({
+  toolId: "drkdbo",
+});
+const PasswordResetForm = Userfront.build({
+  toolId: "oardnd",
+});
+
+const LogoutButton = Userfront.build({
+  toolId: "aalrnd"
+});
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <Link to="/reset">Reset</Link>
+            </li>
+            <li>
+              <Link to="/dashboard">Dashboard</Link>
+            </li>
+          </ul>
+        </nav>
+
+        <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/reset">
+            <PasswordReset />
+          </Route>
+          <Route path="/dashboard">
+            <Dashboard />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+  );
+}
+
+function Home() {
+  return (
+    <div>
+      <h2>Home</h2>
+      <SignupForm />
     </div>
   );
 }
 
-export default App;
+function Login() {
+  return (
+    <div>
+      <h2>Login</h2>
+      <LoginForm />
+    </div>
+  );
+}
+
+function PasswordReset() {
+  return (
+    <div>
+      <h2>Password Reset</h2>
+      <PasswordResetForm />
+    </div>
+  );
+}
+
+function Dashboard() {
+  function renderFn({ location }) {
+    // If the user is not logged in, redirect to login
+    if (!Userfront.accessToken()) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/login",
+            state: { from: location },
+          }}
+        />
+      );
+    }
+
+    // If the user is logged in, show the dashboard
+    const userData = JSON.stringify(Userfront.user, null, 2);
+    return (
+      <div>
+        <h2>Dashboard</h2>
+        <pre>{userData}</pre>
+        <LogoutButton />
+      </div>
+    );
+  }
+
+  return <Route render={renderFn} />;
+}
