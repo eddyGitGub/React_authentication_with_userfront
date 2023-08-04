@@ -1,6 +1,16 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React Authentication with Userfront
+This project shows how to add authentication to a React app using Userfront.
+
+## Overview
+The app contains basic pages for signup, login, dashboard (authenticated), and 404. Authentication is handled with Userfront using their React SDK.
+
+## The main functionality includes:
+
+- Sign up with email
+- Login/logout
+- Protected routes
+- Persisting authentication using cookies
 
 ## Available Scripts
 
