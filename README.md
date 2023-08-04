@@ -12,6 +12,25 @@ The app contains basic pages for signup, login, dashboard (authenticated), and 4
 - Protected routes
 - Persisting authentication using cookies
 
+
+The Userfront React SDK handles most of the authentication functionality out of the box. Main implementation is in App.js.
+
+Protected routes are set up using Userfront's RequireAuth component in the Router.
+
+Userfront
+Userfront makes it easy to add full authentication flows to React apps with just their SDK. Recommended for quickly adding auth to SPAs.
+
+Userfront Docs
+
+Deployment
+This app can be easily deployed to any hosting provider.
+
+
+Notes
+This is a simple demo app showcasing Userfront's React SDK. For a more robust implementation, the state management and routes can be improved.
+
+This template provides a good starting point for adding authentication to a React app with Userfront.
+
 ## Available Scripts
 
 In the project directory, you can run:
